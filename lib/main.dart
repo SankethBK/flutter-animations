@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animations/gmail_compose_button/main.dart';
+import 'package:flutter_animations/whatsapp_fab/main.dart';
 import 'package:flutter_animations/whatsapp_toolbar/static_layout.dart';
 
 import 'whatsapp_toolbar/main.dart';
@@ -48,11 +49,24 @@ class Home extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => WhatsappAppbar(),
+                      builder: (_) => const WhatsAppAppbar(),
                     ),
                   );
                 },
                 child: const Text("Whatsapp Appbar"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const WhatsAppFab(),
+                    ),
+                  );
+                },
+                child: const Text("Whatsapp Fab"),
               ),
             ),
           ],

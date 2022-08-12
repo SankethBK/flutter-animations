@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class WhatsappAppbar extends StatelessWidget {
-  const WhatsappAppbar({Key? key}) : super(key: key);
+class WhatsappAppbarWithoutTabbarView extends StatelessWidget {
+  const WhatsappAppbarWithoutTabbarView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
