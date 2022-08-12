@@ -10,6 +10,7 @@ class WhatsAppFab extends StatefulWidget {
 class _WhatsAppFabState extends State<WhatsAppFab>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
+  int activeTab = 0;
 
   @override
   void initState() {
@@ -17,8 +18,11 @@ class _WhatsAppFabState extends State<WhatsAppFab>
     tabController = TabController(length: 4, vsync: this);
 
     tabController!.addListener(() {
-      print("tab changed");
-      print(tabController?.index);
+      if (tabController?.index != activeTab) {
+        setState(() {
+          activeTab = tabController!.index;
+        });
+      }
     });
   }
 
@@ -28,15 +32,51 @@ class _WhatsAppFabState extends State<WhatsAppFab>
     super.dispose();
   }
 
+  Widget getIoncForFab(index) {
+    switch (index) {
+      case 2:
+        return const Icon(Icons.camera_alt);
+      case 3:
+        return const Icon(Icons.phone);
+      case 1:
+        return const Icon(Icons.post_add);
+      default:
+        return const SizedBox.shrink();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromARGB(255, 4, 94, 84),
-          onPressed: () {},
-          child: const Icon(Icons.post_add),
-        ),
+        floatingActionButton: (activeTab != 0)
+            ? Container(
+                color: Colors.pink,
+                child: Stack(
+                  // clipBehavior: Clip.antiAliasWithSaveLayer,
+                  overflow: Overflow.visible,
+                  children: [
+                    FloatingActionButton(
+                        backgroundColor: const Color.fromARGB(255, 4, 94, 84),
+                        onPressed: () {},
+                        child: getIoncForFab(activeTab)),
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 3000),
+                      bottom: activeTab == 2 ? 55 : 0,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.edit,
+                          color: Colors.grey[800],
+                        ),
+                        color: Color.fromARGB(255, 195, 7, 7),
+                        padding: const EdgeInsets.all(10),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : const SizedBox.shrink(),
         body: NestedScrollView(
           floatHeaderSlivers: true,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
