@@ -9,12 +9,155 @@ class WhatsappProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: CustomScrollView(
           slivers: [
             SliverPersistentHeader(
               delegate: WhatsappAppbar(MediaQuery.of(context).size.width),
               pinned: true,
-            )
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const SizedBox(height: 35),
+                  const Text(
+                    "+3 3333333333",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const Text(
+                    "~Walter Hartwell White",
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: const [
+                          Icon(
+                            Icons.call,
+                            size: 30,
+                            color: Color.fromARGB(255, 8, 141, 125),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Call",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 8, 141, 125),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(width: 20),
+                      Column(
+                        children: const [
+                          Icon(
+                            Icons.video_call,
+                            size: 30,
+                            color: Color.fromARGB(255, 8, 141, 125),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Video",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 8, 141, 125),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(width: 20),
+                      Column(
+                        children: const [
+                          Icon(
+                            Icons.save,
+                            size: 30,
+                            color: Color.fromARGB(255, 8, 141, 125),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Save",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 8, 141, 125),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(width: 20),
+                      Column(
+                        children: const [
+                          Icon(
+                            Icons.search,
+                            size: 30,
+                            color: Color.fromARGB(255, 8, 141, 125),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Search",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color.fromARGB(255, 8, 141, 125),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate(const [
+              SizedBox(height: 20),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Disappearing messages"),
+                leading: Icon(Icons.message),
+              ),
+              ListTile(
+                title: Text("Mute Notifications"),
+                leading: Icon(Icons.mic_off),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+              ListTile(
+                title: Text("Custom Notifications"),
+                leading: Icon(Icons.notification_add),
+              ),
+            ]))
           ],
         ),
       ),
@@ -49,7 +192,6 @@ class WhatsappAppbar extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     final relativeHalfScroll = min(shrinkOffset, 45) / 45;
     final relativeFullScrollOffset = min(shrinkOffset, 70) / 70;
-    print("shrinkoffset = $shrinkOffset");
     return Container(
       color: appBarColorTween.transform(relativeHalfScroll),
       child: Stack(
