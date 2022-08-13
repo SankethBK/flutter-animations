@@ -49,32 +49,32 @@ class _WhatsAppFabState extends State<WhatsAppFab>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.grey[300],
         floatingActionButton: (activeTab != 0)
-            ? Container(
-                color: Colors.pink,
-                child: Stack(
-                  // clipBehavior: Clip.antiAliasWithSaveLayer,
-                  overflow: Overflow.visible,
-                  children: [
-                    FloatingActionButton(
-                        backgroundColor: const Color.fromARGB(255, 4, 94, 84),
-                        onPressed: () {},
-                        child: getIoncForFab(activeTab)),
-                    AnimatedPositioned(
-                      duration: const Duration(milliseconds: 3000),
-                      bottom: activeTab == 2 ? 55 : 0,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.edit,
-                          color: Colors.grey[800],
-                        ),
-                        color: Color.fromARGB(255, 195, 7, 7),
-                        padding: const EdgeInsets.all(10),
+            ? Stack(
+                alignment: AlignmentDirectional.center,
+                clipBehavior: Clip.none,
+                children: [
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    bottom: activeTab == 2 ? 70 : 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey[500],
+                      ),
+                      child: Icon(
+                        Icons.edit,
+                        color: Colors.grey[100],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  FloatingActionButton(
+                      backgroundColor: const Color.fromARGB(255, 4, 94, 84),
+                      onPressed: () {},
+                      child: getIoncForFab(activeTab)),
+                ],
               )
             : const SizedBox.shrink(),
         body: NestedScrollView(
@@ -163,7 +163,7 @@ class WhatsappTabs extends SliverPersistentHeaderDelegate {
         labelColor: Colors.white,
         unselectedLabelColor: Colors.white60,
         // isScrollable: true,
-        tabs: <Widget>[
+        tabs: const <Widget>[
           Tab(icon: Icon(Icons.camera_alt)),
           Tab(text: "Chats"),
           Tab(text: "Status"),
