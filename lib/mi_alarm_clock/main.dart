@@ -10,17 +10,44 @@ class MIAlarmCustomModalAnatiomPage extends StatefulWidget {
 }
 
 class _MIAlarmCustomModalAnatiomPageState
-    extends State<MIAlarmCustomModalAnatiomPage> {
+    extends State<MIAlarmCustomModalAnatiomPage>
+    with SingleTickerProviderStateMixin {
   int? openTileId;
 
   final ScrollController _scrollController = ScrollController();
 
+  late AnimationController _animationController;
+
+  Tween<double>? modalTopPosition;
+  Tween<double>? modalBottomPosition;
+  Tween<double>? modalWidth;
+  Tween<double>? modalBorderRadius;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 5000), vsync: this);
+  }
+
+  // initialize animation start values based on scrollcontroller's position
+  void initializeAnimationStartValues() {
+    var tileTop = (openTileId! - 1) * 70 - _scrollController.position.pixels;
+    modalTopPosition = Tween<double>(begin: tileTop, end: tileTop - 100);
+
+    var tileBottom = tileTop + 70;
+    modalBottomPosition =
+        Tween<double>(begin: tileBottom, end: tileBottom + 100);
+  }
+
   void onTileTap(int tileId) {
-    print("scroll offset =  ${_scrollController.position.pixels}}");
+    initializeAnimationStartValues();
     setState(() {
       openTileId = tileId;
     });
-    print("$openTileId tapped");
+
+    _animationController.forward();
   }
 
   final List<String> alarmTimes = [
@@ -79,23 +106,26 @@ class _MIAlarmCustomModalAnatiomPageState
               ),
             ),
           if (openTileId != null)
-            Positioned(
-              top: (openTileId! - 1) * 70 - _scrollController.position.pixels,
-              child: Container(
-                height: 70,
-                width: MediaQuery.of(context).size.width,
-                // color: Colors.grey[300],
-                child: AnimatedContainer(
-                  color: Colors.white,
-                  duration: const Duration(milliseconds: 5000),
-                  child: AlarmItem(
-                    context: context,
-                    id: 0,
-                    alarmTime: alarmTimes[openTileId! - 1],
-                    onTap: (_) {},
+            AnimatedBuilder(
+              animation: _animationController,
+              builder: (context, child) {
+                return Positioned(
+                  top: (openTileId! - 1) * 70 -
+                      _scrollController.position.pixels,
+                  child: AnimatedContainer(
+                    color: Colors.white,
+                    duration: const Duration(milliseconds: 5000),
+                    width: MediaQuery.of(context).size.width,
+                    child: AlarmItem(
+                      context: context,
+                      id: 0,
+                      alarmTime: alarmTimes[openTileId! - 1],
+                      onTap: (_) {},
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
+              // child:
             )
         ],
       ),
