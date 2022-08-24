@@ -13,36 +13,95 @@ class _MIAlarmCustomModalAnatiomPageState
     extends State<MIAlarmCustomModalAnatiomPage>
     with SingleTickerProviderStateMixin {
   int? openTileId;
+  double? screenSize;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    screenSize ??= MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + kToolbarHeight);
+  }
 
   final ScrollController _scrollController = ScrollController();
 
   late AnimationController _animationController;
 
   Tween<double>? modalTopPosition;
-  Tween<double>? modalBottomPosition;
+  Tween<double>? modalHeight;
   Tween<double>? modalWidth;
   Tween<double>? modalBorderRadius;
+  Tween<double>? modalPadding;
+
+  final verticalModalPadding = 15.0;
+  final modalExpandedSize = 250.0;
+  final tileSize = 70.0;
+  late double verticalTopMovement;
+  late double verticalBottomMovememnt;
 
   @override
   void initState() {
     super.initState();
 
+    // amount by which top of the tile should expand in normal case
+    verticalTopMovement = (modalExpandedSize / 2) - (tileSize / 2);
+
+    // amount by which bottom of the tile should expand in normal case
+    verticalBottomMovememnt = (tileSize / 2) + (modalExpandedSize / 2);
+
     _animationController = AnimationController(
-        duration: const Duration(milliseconds: 5000), vsync: this);
+        duration: const Duration(milliseconds: 300), vsync: this)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.dismissed) {
+          setState(() {
+            openTileId = null;
+          });
+        }
+      });
   }
 
   // initialize animation start values based on scrollcontroller's position
-  void initializeAnimationStartValues() {
-    var tileTop = (openTileId! - 1) * 70 - _scrollController.position.pixels;
-    modalTopPosition = Tween<double>(begin: tileTop, end: tileTop - 100);
+  void initializeAnimationStartValues(int tileId) {
+    var initialTileTopPosition =
+        (tileId - 1) * 70 - _scrollController.position.pixels;
 
-    var tileBottom = tileTop + 70;
-    modalBottomPosition =
-        Tween<double>(begin: tileBottom, end: tileBottom + 100);
+    // if tileTop after expansion is going beyond the screen, stop it at 0
+    if (initialTileTopPosition - verticalTopMovement < verticalModalPadding) {
+      final finalTileTopPosition = 0 + verticalModalPadding;
+      modalTopPosition = Tween<double>(
+          begin: initialTileTopPosition, end: finalTileTopPosition);
+    }
+
+    // if bottom is flowing beyond the screen, stop it at acreen's bottom
+    else if (initialTileTopPosition + verticalBottomMovememnt > screenSize!) {
+      final finalTileTopPosition =
+          screenSize! - (modalExpandedSize + verticalModalPadding);
+      modalTopPosition = Tween<double>(
+          begin: initialTileTopPosition, end: finalTileTopPosition);
+      // normal case (tile is somewhere near the center of screen, so expansion on both top and bottom is equal)
+    } else {
+      final finalTileTopPosition = initialTileTopPosition - verticalTopMovement;
+      modalTopPosition = Tween<double>(
+          begin: initialTileTopPosition, end: finalTileTopPosition);
+    }
+
+    modalHeight = Tween<double>(begin: 70, end: modalExpandedSize);
+
+    modalWidth = Tween<double>(
+        begin: MediaQuery.of(context).size.width,
+        end: MediaQuery.of(context).size.width * 0.92);
+
+    modalBorderRadius = Tween<double>(begin: 0, end: 30.0);
+
+    modalPadding = Tween<double>(begin: 0, end: 10.0);
+  }
+
+  void closeModal() {
+    _animationController.reverse();
   }
 
   void onTileTap(int tileId) {
-    initializeAnimationStartValues();
+    initializeAnimationStartValues(tileId);
     setState(() {
       openTileId = tileId;
     });
@@ -78,6 +137,7 @@ class _MIAlarmCustomModalAnatiomPageState
     return Scaffold(
       appBar: AppBar(title: const Text("MI Alarm Clock")),
       body: Stack(
+        alignment: Alignment.center,
         children: [
           ListView(
             controller: _scrollController,
@@ -94,14 +154,12 @@ class _MIAlarmCustomModalAnatiomPageState
             Positioned(
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    openTileId = null;
-                  });
+                  closeModal();
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: double.infinity,
-                  color: Colors.grey[400]!.withOpacity(0.3),
+                  color: Colors.grey[700]!.withOpacity(0.5),
                 ),
               ),
             ),
@@ -110,23 +168,140 @@ class _MIAlarmCustomModalAnatiomPageState
               animation: _animationController,
               builder: (context, child) {
                 return Positioned(
-                  top: (openTileId! - 1) * 70 -
-                      _scrollController.position.pixels,
-                  child: AnimatedContainer(
-                    color: Colors.white,
-                    duration: const Duration(milliseconds: 5000),
-                    width: MediaQuery.of(context).size.width,
-                    child: AlarmItem(
-                      context: context,
-                      id: 0,
-                      alarmTime: alarmTimes[openTileId! - 1],
-                      onTap: (_) {},
+                  top: modalTopPosition!.transform(_animationController.value),
+                  child: Container(
+                    height: modalHeight!.transform(_animationController.value),
+                    width: modalWidth!.transform(_animationController.value),
+                    padding: EdgeInsets.all(
+                        modalPadding!.transform(_animationController.value)),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(modalBorderRadius!.transform(
+                            _animationController.value,
+                          )),
+                        ),
+                        boxShadow: [
+                          // display shadow only after the animation is complete
+                          if (_animationController.value == 1)
+                            BoxShadow(
+                              color: Colors.grey[600]!,
+                              blurRadius: 25,
+                              // offset: const Offset(4, 8),
+                            )
+                        ]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AlarmItem(
+                          context: context,
+                          id: 0,
+                          alarmTime: alarmTimes[openTileId! - 1],
+                          onTap: (_) {},
+                        ),
+                        // display this only after the animation is complete, to prevent overflow
+                        if (_animationController.value == 1)
+                          const AlarmTImeColumns(),
+                        // display buttons only when modal height is above 150, to prevent overflow errors
+                        if (modalHeight!.transform(_animationController.value) >
+                            150)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              children: const [
+                                ModalButton(text: "Settings"),
+                                SizedBox(width: 20),
+                                ModalButton(text: "OK"),
+                              ],
+                            ),
+                          )
+                      ],
                     ),
                   ),
                 );
               },
               // child:
             )
+        ],
+      ),
+    );
+  }
+}
+
+class AlarmTImeColumns extends StatelessWidget {
+  const AlarmTImeColumns({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 28.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text("AM",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+              Text("PM",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+            ],
+          ),
+          Column(
+            children: const [
+              Text("08",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+              Text("09",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+              Text("10",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+            ],
+          ),
+          Column(
+            children: const [
+              Text("10",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+              Text("11",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+              Text("12",
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.grey,
+                  )),
+              SizedBox(height: 10),
+            ],
+          )
         ],
       ),
     );
@@ -173,6 +348,42 @@ class AlarmItem extends StatelessWidget {
           style: TextStyle(color: Colors.grey),
         ),
         trailing: Switch(value: false, onChanged: (_) {}),
+      ),
+    );
+  }
+}
+
+class ModalButton extends StatelessWidget {
+  const ModalButton({Key? key, required this.text}) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: () {},
+        child: Text(text),
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all(0.2),
+          backgroundColor: MaterialStateProperty.all(Colors.grey[100]!),
+          foregroundColor: MaterialStateProperty.all(Colors.black),
+          padding: MaterialStateProperty.all(const EdgeInsets.all(10)),
+          textStyle: MaterialStateProperty.all(
+            const TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+              side: BorderSide(
+                color: Colors.black.withOpacity(0.3),
+                width: 0.5,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
