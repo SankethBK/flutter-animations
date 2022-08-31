@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animations/animated_builder.dart';
+import 'package:flutter_animations/animated_widget.dart';
 import 'package:flutter_animations/gmail_compose_button/main.dart';
 import 'package:flutter_animations/mi_alarm_clock/main.dart';
+import 'package:flutter_animations/scroll_controller_demo.dart';
 import 'package:flutter_animations/whatsapp_fab/main.dart';
 import 'package:flutter_animations/whatsapp_profile_page/main.dart';
 import 'package:flutter_animations/whatsapp_toolbar/static_layout.dart';
@@ -39,10 +42,65 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: ElevatedButton(
                 onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const Scaffold(body: AnimatedWidgetExample()),
+                    ),
+                  );
+                },
+                child: const Text("Animated widget demo"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const Scaffold(body: AnimatedBuilderExample()),
+                    ),
+                  );
+                },
+                child: const Text("Animated builder example"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          const Scaffold(body: ScrollControllerDemo()),
+                    ),
+                  );
+                },
+                child: const Text("ScrollController demo"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => const GmailComposeButton()));
                 },
                 child: const Text("Gmail compose button"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const WhatsappProfilePage(),
+                    ),
+                  );
+                },
+                child: const Text("Whatsapp Profile Page"),
               ),
             ),
             Padding(

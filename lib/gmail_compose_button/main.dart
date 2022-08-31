@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-enum ScrollState { up, down, none }
-
 class GmailComposeButton extends StatefulWidget {
   const GmailComposeButton({Key? key}) : super(key: key);
 
@@ -18,7 +16,8 @@ class _GmailComposeButtonState extends State<GmailComposeButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      home: Scaffold(
         appBar: AppBar(title: const Text("Gmail compose button")),
         body: NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification scrollInfo) {
@@ -88,6 +87,8 @@ class _GmailComposeButtonState extends State<GmailComposeButton> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

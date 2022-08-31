@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:animations/animations.dart';
 
 class MIAlarmCustomModalAnatiomPage extends StatefulWidget {
   const MIAlarmCustomModalAnatiomPage({Key? key}) : super(key: key);
