@@ -107,8 +107,8 @@ class Messages extends StatelessWidget {
               backgroundImage: NetworkImage(
                   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEgzwHNJhsADqquO7m7NFcXLbZdFZ2gM73x8I82vhyhg&s"),
             ),
-            title: Text("Mr. White"),
-            subtitle: Text("We need to cook"),
+            title: Text("Mr. H"),
+            subtitle: Text("Hey there, look at the appbar"),
           );
         },
       ),
