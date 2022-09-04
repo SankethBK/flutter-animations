@@ -14,7 +14,7 @@ class WhatsAppAppbar extends StatelessWidget {
     return MaterialApp(
       home: DefaultTabController(
         length: 4,
-        initialIndex: 2,
+        initialIndex: 1,
         child: SafeArea(
           child: Scaffold(
             body: NestedScrollView(
