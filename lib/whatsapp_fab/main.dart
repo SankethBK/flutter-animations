@@ -10,12 +10,13 @@ class WhatsAppFab extends StatefulWidget {
 class _WhatsAppFabState extends State<WhatsAppFab>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
-  int activeTab = 0;
+  int activeTab = 1;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 4, vsync: this);
+    tabController =
+        TabController(length: 4, vsync: this, initialIndex: activeTab);
 
     tabController!.addListener(() {
       if (tabController?.index != activeTab) {
