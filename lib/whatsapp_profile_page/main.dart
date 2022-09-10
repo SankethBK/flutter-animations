@@ -190,10 +190,10 @@ class WhatsappAppbar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final relativeHalfScroll = min(shrinkOffset, 45) / 45;
-    final relativeFullScrollOffset = min(shrinkOffset, 70) / 70;
+    final relativeScroll = min(shrinkOffset, 45) / 45;
+    final relativeScroll70px = min(shrinkOffset, 70) / 70;
     return Container(
-      color: appBarColorTween.transform(relativeHalfScroll),
+      color: appBarColorTween.transform(relativeScroll),
       child: Stack(
         children: [
           Positioned(
@@ -201,26 +201,23 @@ class WhatsappAppbar extends SliverPersistentHeaderDelegate {
             child: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.arrow_back, size: 25),
-              color: appbarIconColorTween.transform(relativeHalfScroll),
+              color: appbarIconColorTween.transform(relativeScroll),
             ),
           ),
-          Positioned(
-              top: 5,
-              left:
-                  profilePicTranslateTween!.transform(relativeFullScrollOffset),
-              child: displayProfilePicture(relativeFullScrollOffset)),
-          Positioned(
-              top: 15,
-              left: 90,
-              child: displayPhoneNumber(relativeFullScrollOffset)),
           Positioned(
             right: 0,
             child: IconButton(
               onPressed: () {},
               icon: const Icon(Icons.more_vert, size: 25),
-              color: appbarIconColorTween.transform(relativeHalfScroll),
+              color: appbarIconColorTween.transform(relativeScroll),
             ),
           ),
+          Positioned(
+              top: 15, left: 90, child: displayPhoneNumber(relativeScroll70px)),
+          Positioned(
+              top: 5,
+              left: profilePicTranslateTween!.transform(relativeScroll70px),
+              child: displayProfilePicture(relativeScroll70px)),
         ],
       ),
     );

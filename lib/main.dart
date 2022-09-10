@@ -68,20 +68,6 @@ class Home extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) =>
-                          const Scaffold(body: ScrollControllerDemo()),
-                    ),
-                  );
-                },
-                child: const Text("ScrollController demo"),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-              child: ElevatedButton(
-                onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (_) => const GmailComposeButton()));
                 },
