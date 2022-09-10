@@ -18,149 +18,150 @@ class WhatsappProfilePage extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Column(
-                children: [
-                  const SizedBox(height: 35),
-                  const Text(
+                children: const [
+                  SizedBox(height: 35),
+                  Text(
                     "+3 3333333333",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
+                  SizedBox(height: 10),
+                  Text(
                     "~Walter Hartwell White",
                     style: TextStyle(
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.call,
-                            size: 30,
-                            color: Color.fromARGB(255, 8, 141, 125),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Call",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 8, 141, 125),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(width: 20),
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.video_call,
-                            size: 30,
-                            color: Color.fromARGB(255, 8, 141, 125),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Video",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 8, 141, 125),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(width: 20),
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.save,
-                            size: 30,
-                            color: Color.fromARGB(255, 8, 141, 125),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Save",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 8, 141, 125),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(width: 20),
-                      Column(
-                        children: const [
-                          Icon(
-                            Icons.search,
-                            size: 30,
-                            color: Color.fromARGB(255, 8, 141, 125),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Search",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Color.fromARGB(255, 8, 141, 125),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  )
+                  SizedBox(height: 30),
+                  ProfileIconButtons()
                 ],
               ),
             ),
-            SliverList(
-                delegate: SliverChildListDelegate(const [
-              SizedBox(height: 20),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Disappearing messages"),
-                leading: Icon(Icons.message),
-              ),
-              ListTile(
-                title: Text("Mute Notifications"),
-                leading: Icon(Icons.mic_off),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-              ListTile(
-                title: Text("Custom Notifications"),
-                leading: Icon(Icons.notification_add),
-              ),
-            ]))
+            const WhatsappProfileBody()
           ],
         ),
       ),
+    );
+  }
+}
+
+class WhatsappProfileBody extends StatelessWidget {
+  const WhatsappProfileBody({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverList(
+        delegate: SliverChildListDelegate(const [
+      SizedBox(height: 20),
+      ListTile(
+        title: Text("Custom Notifications"),
+        leading: Icon(Icons.notification_add),
+      ),
+      ListTile(
+        title: Text("Disappearing messages"),
+        leading: Icon(Icons.message),
+      ),
+      ListTile(
+        title: Text("Mute Notifications"),
+        leading: Icon(Icons.mic_off),
+      ),
+      ListTile(
+        title: Text("Media visibility"),
+        leading: Icon(Icons.save),
+      ),
+      SizedBox(
+        height: 350,
+      ),
+    ]));
+  }
+}
+
+class ProfileIconButtons extends StatelessWidget {
+  const ProfileIconButtons({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Column(
+          children: const [
+            Icon(
+              Icons.call,
+              size: 30,
+              color: Color.fromARGB(255, 8, 141, 125),
+            ),
+            SizedBox(height: 5),
+            Text(
+              "Call",
+              style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 8, 141, 125),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(width: 20),
+        Column(
+          children: const [
+            Icon(
+              Icons.video_call,
+              size: 30,
+              color: Color.fromARGB(255, 8, 141, 125),
+            ),
+            SizedBox(height: 5),
+            Text(
+              "Video",
+              style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 8, 141, 125),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(width: 20),
+        Column(
+          children: const [
+            Icon(
+              Icons.save,
+              size: 30,
+              color: Color.fromARGB(255, 8, 141, 125),
+            ),
+            SizedBox(height: 5),
+            Text(
+              "Save",
+              style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 8, 141, 125),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(width: 20),
+        Column(
+          children: const [
+            Icon(
+              Icons.search,
+              size: 30,
+              color: Color.fromARGB(255, 8, 141, 125),
+            ),
+            SizedBox(height: 5),
+            Text(
+              "Search",
+              style: TextStyle(
+                fontSize: 18,
+                color: Color.fromARGB(255, 8, 141, 125),
+              ),
+            )
+          ],
+        ),
+      ],
     );
   }
 }
@@ -170,7 +171,6 @@ class WhatsappAppbar extends SliverPersistentHeaderDelegate {
   Tween<double>? profilePicTranslateTween;
 
   WhatsappAppbar(this.screenWidth) {
-    print("screen width = $screenWidth");
     profilePicTranslateTween =
         Tween<double>(begin: screenWidth / 2 - 45 - 40 + 15, end: 40.0);
   }
