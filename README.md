@@ -13,3 +13,8 @@ This repository contains real animation clones from popular apps built with Flut
 3. Whatsapp Flaoting Action Button
 
 ![Whatsapp FAB](https://miro.medium.com/max/592/1*ssx-RLZotn3dLPOYqMnXHg.gif)
+
+4. Whatsapp Profile Page
+
+![Whatsapp Profile Page](https://miro.medium.com/max/590/1*W-PL-Kri4jd-Ox8N4W4H7g.gif)
+
