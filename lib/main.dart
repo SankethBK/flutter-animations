@@ -3,10 +3,11 @@ import 'package:flutter_animations/animated_builder.dart';
 import 'package:flutter_animations/animated_widget.dart';
 import 'package:flutter_animations/gmail_compose_button/main.dart';
 import 'package:flutter_animations/mi_alarm_clock/main.dart';
-import 'package:flutter_animations/scroll_controller_demo.dart';
 import 'package:flutter_animations/whatsapp_appbar/main.dart';
 import 'package:flutter_animations/whatsapp_fab/main.dart';
 import 'package:flutter_animations/whatsapp_profile_page/main.dart';
+
+import 'dairyaholic/main.dart';
 
 void main() {
   runApp(const MyApp());
@@ -137,6 +138,19 @@ class Home extends StatelessWidget {
                   );
                 },
                 child: const Text("MI Alarm clock"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => DairyaholicAuthPage(),
+                    ),
+                  );
+                },
+                child: const Text("Dairyaholic login page"),
               ),
             ),
           ],
