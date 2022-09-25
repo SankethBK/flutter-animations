@@ -3,6 +3,7 @@ import 'package:flutter_animations/animated_builder.dart';
 import 'package:flutter_animations/animated_widget.dart';
 import 'package:flutter_animations/gmail_compose_button/main.dart';
 import 'package:flutter_animations/mi_alarm_clock/main.dart';
+import 'package:flutter_animations/spotify_album_page/main.dart';
 import 'package:flutter_animations/whatsapp_appbar/main.dart';
 import 'package:flutter_animations/whatsapp_fab/main.dart';
 import 'package:flutter_animations/whatsapp_profile_page/main.dart';
@@ -151,6 +152,19 @@ class Home extends StatelessWidget {
                   );
                 },
                 child: const Text("Dairyaholic login page"),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const SpotifyAblbumPage(),
+                    ),
+                  );
+                },
+                child: const Text("Spotify album page"),
               ),
             ),
           ],
