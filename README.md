@@ -1,4 +1,16 @@
-## Animtion demos from real life apps
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+h1 {
+  color: red;
+  animation: myanimation 2s infinite;
+}
+
+<div style="background-color: blue">
+    <h1 style="color: red;">Animtion demos from real life apps</h1>
+</div>
 
 This repository contains real animation clones from popular apps built with Flutter
 
@@ -18,3 +30,6 @@ This repository contains real animation clones from popular apps built with Flut
 
 ![Whatsapp Profile Page](https://miro.medium.com/max/590/1*W-PL-Kri4jd-Ox8N4W4H7g.gif)
 
+5. Diaryaholic Login Page
+
+![Diaryaholic Login Page](https://miro.medium.com/max/850/1*6ClLqyqGrlm31QISYOMmqw.gif)
