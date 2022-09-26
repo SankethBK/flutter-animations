@@ -119,13 +119,13 @@ class AlbumCoverImage extends StatelessWidget {
 
   final scaleTween = Tween<double>(begin: 7.0, end: 2.0);
 
-  final opacityTween = Tween<double>(begin: 1.0, end: 0.0);
-
   double getScaleValue() {
     // appbarsize start: 280, end: 130
 
     return min(shrinkOffset, 150) / 150;
   }
+
+  final opacityTween = Tween<double>(begin: 1.0, end: 0.0);
 
   double getOpacityValue() {
     // shrikOffset sttart 160, end: 213
@@ -148,13 +148,15 @@ class AlbumCoverImage extends StatelessWidget {
         alignment: Alignment.center,
         transform: Matrix4.identity()..scale(transformScaleValue),
         child: Container(
-          decoration: BoxDecoration(boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 15,
-            ),
-          ], color: Colors.red),
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 15,
+              ),
+            ],
+          ),
           child: Image.network(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuJBdL2kT21myYKJSZZqqz4pbzcF1kOXCBCyhLlQRCkA&s",
             height: 35,
