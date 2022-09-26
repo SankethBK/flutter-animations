@@ -51,10 +51,13 @@ class SpotifyAppBar extends SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
             top: 20,
             left: 20,
-            child: Icon(Icons.arrow_back, color: Colors.white, size: 25)),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white, size: 25),
+              onPressed: () => Navigator.of(context).pop(),
+            )),
         Positioned(
           top: 20,
           left: 60,
@@ -98,8 +101,6 @@ class AlbumName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("opacity = ${getOpacity()}");
-    print("opacity transform = ${opacityTween.transform(getOpacity())}");
     return Opacity(
       opacity: opacityTween.transform(getOpacity()),
       child: const Text("evermore (deluxe version)",
@@ -140,9 +141,7 @@ class AlbumCoverImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print("shrinkOffset = $shrinkOffset");
     var transformScaleValue = scaleTween.transform(getScaleValue());
-    // print("transformScaleValue = $transformScaleValue");
     return Opacity(
       opacity: opacityTween.transform(getOpacityValue()),
       child: Transform(
@@ -159,8 +158,6 @@ class AlbumCoverImage extends StatelessWidget {
           child: Image.network(
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuJBdL2kT21myYKJSZZqqz4pbzcF1kOXCBCyhLlQRCkA&s",
             height: 35,
-            // // width: 200,
-            // fit: BoxFit.cover,
           ),
         ),
       ),
@@ -311,7 +308,6 @@ class AlbumInfo extends StatelessWidget {
                   size: 30,
                   color: Colors.white.withOpacity(0.8),
                 ),
-                const SizedBox(width: 60)
               ],
             )
           ],
