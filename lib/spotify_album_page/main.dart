@@ -52,19 +52,19 @@ class SpotifyAppBar extends SliverPersistentHeaderDelegate {
           ),
         ),
         Positioned(
-            top: 20,
-            left: 20,
+            top: 10,
+            left: 10,
             child: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white, size: 25),
               onPressed: () => Navigator.of(context).pop(),
             )),
         Positioned(
-          top: 20,
-          left: 60,
+          top: 22,
+          left: 55,
           child: AlbumName(
             shrinkoffset: shrinkOffset,
           ),
-        )
+        ),
       ],
     );
   }
