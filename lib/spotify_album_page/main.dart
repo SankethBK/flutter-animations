@@ -2,9 +2,29 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_sticky_widgets/flutter_sticky_widgets.dart';
 
-class SpotifyAblbumPage extends StatelessWidget {
+class SpotifyAblbumPage extends StatefulWidget {
   const SpotifyAblbumPage({Key? key}) : super(key: key);
+
+  @override
+  State<SpotifyAblbumPage> createState() => _SpotifyAblbumPageState();
+}
+
+class _SpotifyAblbumPageState extends State<SpotifyAblbumPage> {
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,16 +33,35 @@ class SpotifyAblbumPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          SliverPersistentHeader(
-            delegate: SpotifyAppBar(),
-            pinned: true,
-          ),
-          const AlbumInfo(),
-          SongsList(),
+      body: StickyContainer(
+        stickyChildren: [
+          StickyWidget(
+            initialPosition: StickyPosition(top: 405, right: 10),
+            finalPosition: StickyPosition(top: 40, right: 10),
+            controller: _controller,
+            child: Container(
+              padding: const EdgeInsets.all(5.0),
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 31, 213, 97),
+                shape: BoxShape.circle,
+              ),
+              child:
+                  const Icon(Icons.play_arrow, color: Colors.black, size: 35),
+            ),
+          )
         ],
+        child: CustomScrollView(
+          controller: _controller,
+          physics: const ClampingScrollPhysics(),
+          slivers: [
+            SliverPersistentHeader(
+              delegate: SpotifyAppBar(),
+              pinned: true,
+            ),
+            const AlbumInfo(),
+            SongsList(),
+          ],
+        ),
       ),
     );
   }
@@ -310,6 +349,7 @@ class AlbumInfo extends StatelessWidget {
                   size: 30,
                   color: Colors.white.withOpacity(0.8),
                 ),
+                const SizedBox(width: 50),
               ],
             )
           ],
