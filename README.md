@@ -33,3 +33,7 @@ This repository contains real animation clones from popular apps built with Flut
 5. Diaryaholic Login Page
 
 ![Diaryaholic Login Page](https://miro.medium.com/max/850/1*6ClLqyqGrlm31QISYOMmqw.gif)
+
+6. Spotify Album page
+
+![Spotify Album Page](https://miro.medium.com/max/1134/1*CmbEXOv6wK8wK9h6Uewdnw.gif)
