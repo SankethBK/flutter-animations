@@ -30,10 +30,10 @@ This repository contains real animation clones from popular apps built with Flut
   </div>
   <div>
     <h4>5. Diaryaholic Login Page</h4>
-    <img width="300" src="https://user-images.githubusercontent.com/51091231/200104034-f86133af-ada8-474a-b42a-2950b922a409.gif">
+    <img src="https://user-images.githubusercontent.com/51091231/200104034-f86133af-ada8-474a-b42a-2950b922a409.gif">
   </div>
   <div>
     <h4>6. Spotify Album page</h4>
-    <img width="300" src="https://user-images.githubusercontent.com/51091231/200100377-5ee77449-a75e-4597-8beb-fe9fa39cc95a.gif">
+    <img src="https://user-images.githubusercontent.com/51091231/200100377-5ee77449-a75e-4597-8beb-fe9fa39cc95a.gif">
   </div>
 </div>
